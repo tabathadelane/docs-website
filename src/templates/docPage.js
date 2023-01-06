@@ -17,11 +17,19 @@ import GithubSlugger from 'github-slugger';
 import { parseHeading } from '../../plugins/gatsby-remark-custom-heading-ids/utils/heading';
 import { TYPES } from '../utils/constants';
 
+/**
+ * `title`s from the `tableOfContents` field are formatted like
+ * "NRQL query examples #examples".
+ * We just want the title without the hash at the end,
+ * since the hash is already in the `url` property on TOC items.
+ */
+const stripTrailingId = (title = '') => title.split(' ').slice(0, -1).join(' ');
+
 const BasicDoc = ({ data, location, pageContext }) => {
   const { mdx } = data;
   const {
     frontmatter,
-    mdxAST,
+    tableOfContents,
     body,
     fields: { fileRelativePath },
     relatedResources,
@@ -30,20 +38,11 @@ const BasicDoc = ({ data, location, pageContext }) => {
 
   const headings = useMemo(() => {
     const slugs = new GithubSlugger();
-
-    return mdxAST.children
-      .filter(
-        (node) =>
-          node.type === 'heading' &&
-          node.depth === 2 &&
-          node.children.length > 0
-      )
-      .map((heading) => {
-        const { id, text } = parseHeading(heading);
-
-        return { id: id || slugs.slug(text), text };
-      });
-  }, [mdxAST]);
+    return (tableOfContents.items ?? []).map(({ title, url }) => ({
+      id: url || slugs.slug(title),
+      text: stripTrailingId(title),
+    }));
+  }, [tableOfContents]);
 
   const {
     title,
@@ -138,8 +137,8 @@ BasicDoc.propTypes = {
 export const pageQuery = graphql`
   query($slug: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
-      mdxAST
       body
+      tableOfContents
       frontmatter {
         title
         metaDescription
