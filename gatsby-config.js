@@ -22,6 +22,14 @@ const ignoreFolders = process.env.BUILD_FOLDERS
       )
       .map((folder) => `${__dirname}/src/content/docs/${folder}/*`)
   : [];
+const i18nIgnoreFolders = additionalLocales
+  .map((locale) => {
+    if (process.env.LOCALE === locale) {
+      return null;
+    }
+    return `${__dirname}/src/i18n/content/${locale}/*`;
+  })
+  .filter(Boolean);
 
 const autoLinkHeaders = {
   resolve: 'gatsby-remark-autolink-headers',
@@ -95,10 +103,7 @@ module.exports = {
       options: {
         name: 'translated-content',
         path: `${__dirname}/src/i18n/content`,
-        ignore:
-          process.env.BUILD_I18N === 'false'
-            ? [`${__dirname}/src/i18n/content/*`]
-            : [],
+        ignore: i18nIgnoreFolders,
       },
     },
     {
