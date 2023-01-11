@@ -23,13 +23,8 @@ const ignoreFolders = process.env.BUILD_FOLDERS
       .map((folder) => `${__dirname}/src/content/docs/${folder}/*`)
   : [];
 const i18nIgnoreFolders = additionalLocales
-  .map((locale) => {
-    if (process.env.LOCALE === locale) {
-      return null;
-    }
-    return `${__dirname}/src/i18n/content/${locale}/*`;
-  })
-  .filter(Boolean);
+  .filter((locale) => process.env.LOCALE !== locale)
+  .map((locale) => `${__dirname}/src/i18n/content/${locale}/*`);
 
 const autoLinkHeaders = {
   resolve: 'gatsby-remark-autolink-headers',
