@@ -304,12 +304,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   if (process.env.LOCALE === 'en') {
     createRedirect({
       fromPath: `/kr/*`,
-      toPath: `https://docswebsitekr.gatsbyjs.io/kr/*`,
+      toPath: `https://docswebsitekr.gtsb.io/kr/*`,
       statusCode: 200,
     });
     createRedirect({
       fromPath: `/jp/*`,
-      toPath: `https://docswebsitejp.gatsbyjs.io/jp/*`,
+      toPath: `https://docswebsitejp.gtsb.io/jp/*`,
       statusCode: 200,
     });
   }
