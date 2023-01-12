@@ -55,6 +55,18 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions;
 
+  if (process.env.LOCALE === 'en') {
+    createRedirect({
+      fromPath: `/kr/*`,
+      toPath: `https://docs.newrelic.com/kr/*`,
+      statusCode: 200,
+    });
+    createRedirect({
+      fromPath: `/jp/*`,
+      toPath: `https://docswebsitejp.gtsb.io/jp/*`,
+      statusCode: 200,
+    });
+  }
   const { data, errors } = await graphql(`
     query {
       allMarkdownRemark(
@@ -270,7 +282,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
     createPageFromNode(node, { createPage });
 
-    locales.forEach((locale) => {
+    if (process.env.LOCALE !== 'en') {
+      const locale = process.env.LOCALE;
       const i18nNode = translatedContentNodes.find(
         (i18nNode) =>
           i18nNode.fields.slug.replace(`/${locale}`, '') === node.fields.slug
@@ -285,7 +298,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         },
         false // disable DSG
       );
-    });
+    }
   });
 
   whatsNewPosts.nodes.forEach((node) => {
@@ -300,19 +313,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       createRedirect,
     });
   });
-
-  if (process.env.LOCALE === 'en') {
-    createRedirect({
-      fromPath: `kr/*`,
-      toPath: `https://docs.newrelic.com/kr/*`,
-      statusCode: 200,
-    });
-    createRedirect({
-      fromPath: `jp/*`,
-      toPath: `https://docswebsitejp.gtsb.io/jp/*`,
-      statusCode: 200,
-    });
-  }
 };
 
 exports.createSchemaCustomization = ({ actions }) => {
