@@ -283,7 +283,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           createPage,
           disableSwiftype: !i18nNode,
         },
-        true // enable DSG
+        false // disable DSG
       );
     });
   });
@@ -301,16 +301,18 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
-  createRedirect({
-    fromPath: `kr/*`,
-    toPath: `https://docswebsitekr.gatsbyjs.io/kr/*`,
-    statusCode: 200,
-  });
-  createRedirect({
-    fromPath: `jp/*`,
-    toPath: `https://docswebsitejp.gatsbyjs.io/jp/*`,
-    statusCode: 200,
-  });
+  if (process.env.LOCALE === 'en') {
+    createRedirect({
+      fromPath: `kr/*`,
+      toPath: `https://docswebsitekr.gatsbyjs.io/kr/*`,
+      statusCode: 200,
+    });
+    createRedirect({
+      fromPath: `jp/*`,
+      toPath: `https://docswebsitejp.gatsbyjs.io/jp/*`,
+      statusCode: 200,
+    });
+  }
 };
 
 exports.createSchemaCustomization = ({ actions }) => {
