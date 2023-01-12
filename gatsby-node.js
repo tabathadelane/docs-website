@@ -303,12 +303,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   if (process.env.LOCALE === 'en') {
     createRedirect({
-      fromPath: `kr/*`,
+      fromPath: `/kr/*`,
       toPath: `https://docswebsitekr.gatsbyjs.io/kr/*`,
       statusCode: 200,
     });
     createRedirect({
-      fromPath: `jp/*`,
+      fromPath: `/jp/*`,
       toPath: `https://docswebsitejp.gatsbyjs.io/jp/*`,
       statusCode: 200,
     });
