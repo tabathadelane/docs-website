@@ -301,16 +301,18 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
-  createRedirect({
-    fromPath: `/kr/*`,
-    toPath: `https://docswebsitekr.gtsb.io/kr/*`,
-    statusCode: 200,
-  });
-  createRedirect({
-    fromPath: `/jp/*`,
-    toPath: `https://docswebsitejp.gtsb.io/jp/*`,
-    statusCode: 200,
-  });
+  if (process.env.LOCALE === 'en') {
+    createRedirect({
+      fromPath: `/kr/*`,
+      toPath: `https://docswebsitekr.gtsb.io/kr/*`,
+      statusCode: 200,
+    });
+    createRedirect({
+      fromPath: `/jp/*`,
+      toPath: `https://docswebsitejp.gtsb.io/jp/*`,
+      statusCode: 200,
+    });
+  }
 };
 
 exports.createSchemaCustomization = ({ actions }) => {
