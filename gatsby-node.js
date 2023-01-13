@@ -58,7 +58,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   if (process.env.LOCALE === 'en') {
     createRedirect({
       fromPath: `/kr/*`,
-      toPath: `https://docs.newrelic.com/kr/*`,
+      toPath: `https://docswebsitekr.gtsb.io/kr/*`,
       statusCode: 200,
     });
     createRedirect({
