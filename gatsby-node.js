@@ -283,21 +283,22 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     createPageFromNode(node, { createPage });
 
     if (process.env.LOCALE !== 'en') {
-      const locale = process.env.LOCALE;
-      const i18nNode = translatedContentNodes.find(
-        (i18nNode) =>
-          i18nNode.fields.slug.replace(`/${locale}`, '') === node.fields.slug
-      );
+      locales.forEach((locale) => {
+        const i18nNode = translatedContentNodes.find(
+          (i18nNode) =>
+            i18nNode.fields.slug.replace(`/${locale}`, '') === node.fields.slug
+        );
 
-      createPageFromNode(
-        i18nNode || node,
-        {
-          prefix: i18nNode ? '' : locale,
-          createPage,
-          disableSwiftype: !i18nNode,
-        },
-        false // disable DSG
-      );
+        createPageFromNode(
+          i18nNode || node,
+          {
+            prefix: i18nNode ? '' : locale,
+            createPage,
+            disableSwiftype: !i18nNode,
+          },
+          false // disable DSG
+        );
+      });
     }
   });
 
