@@ -10,23 +10,6 @@ const METADATA = [
   },
 ];
 
-const crazyEgg = (location) => {
-  const { pathname } = location;
-  const homepage = '/';
-  const signup =
-    '/docs/accounts/accounts-billing/account-setup/create-your-new-relic-account/';
-
-  if (pathname === homepage || pathname === signup) {
-    return (
-      <script
-        type="text/javascript"
-        src="//script.crazyegg.com/pages/scripts/0045/9836.js"
-        async="async"
-      />
-    );
-  }
-};
-
 const isStyleGuidePage = (url) => {
   return url.includes('docs/style-guide');
 };
@@ -98,8 +81,6 @@ const DocsSiteSeo = ({
     {(description || title) && (
       <meta name="description" content={description || title} />
     )}
-
-    {crazyEgg(location)}
   </SEO>
 );
 
