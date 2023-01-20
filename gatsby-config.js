@@ -532,9 +532,6 @@ module.exports = {
             }),
           },
         },
-        shouldUpdateScroll: {
-          routes: ['/attribute-dictionary'],
-        },
         feedback: {
           environment: process.env.ENVIRONMENT || 'staging',
           reCaptchaToken:
