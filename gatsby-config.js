@@ -499,39 +499,39 @@ module.exports = {
             'razor',
           ],
         },
-        newrelic: {
-          config: {
-            instrumentationType: 'proAndSPA',
-            accountId: '10956800',
-            trustKey: '1',
-            agentID:
-              process.env.ENVIRONMENT === 'production'
-                ? '35094662'
-                : '35094418',
-            licenseKey: 'NRJS-649173eb1a7b28cd6ab',
-            applicationID:
-              process.env.ENVIRONMENT === 'production'
-                ? '35094662'
-                : '35094418',
-            beacon: 'staging-bam-cell.nr-data.net',
-            errorBeacon: 'staging-bam-cell.nr-data.net',
-          },
-        },
-        tessen: {
-          tessenVersion: '1.14.0',
-          product: 'DOC',
-          subproduct: 'TDOC',
-          segmentWriteKey: 'AEfP8c1VSuFxhMdk3jYFQrYQV9sHbUXx',
-          trackPageViews: true,
-          pageView: {
-            eventName: 'pageView',
-            category: 'DocPageView',
-            getProperties: ({ location, env }) => ({
-              path: location.pathname,
-              env: env === 'production' ? 'prod' : env,
-            }),
-          },
-        },
+        // newrelic: {
+        //   config: {
+        //     instrumentationType: 'proAndSPA',
+        //     accountId: '10956800',
+        //     trustKey: '1',
+        //     agentID:
+        //       process.env.ENVIRONMENT === 'production'
+        //         ? '35094662'
+        //         : '35094418',
+        //     licenseKey: 'NRJS-649173eb1a7b28cd6ab',
+        //     applicationID:
+        //       process.env.ENVIRONMENT === 'production'
+        //         ? '35094662'
+        //         : '35094418',
+        //     beacon: 'staging-bam-cell.nr-data.net',
+        //     errorBeacon: 'staging-bam-cell.nr-data.net',
+        //   },
+        // },
+        // tessen: {
+        //   tessenVersion: '1.14.0',
+        //   product: 'DOC',
+        //   subproduct: 'TDOC',
+        //   segmentWriteKey: 'AEfP8c1VSuFxhMdk3jYFQrYQV9sHbUXx',
+        //   trackPageViews: true,
+        //   pageView: {
+        //     eventName: 'pageView',
+        //     category: 'DocPageView',
+        //     getProperties: ({ location, env }) => ({
+        //       path: location.pathname,
+        //       env: env === 'production' ? 'prod' : env,
+        //     }),
+        //   },
+        // },
         feedback: {
           environment: process.env.ENVIRONMENT || 'staging',
           reCaptchaToken:
