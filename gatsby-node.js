@@ -55,18 +55,6 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions;
 
-  if (process.env.LOCALE === 'en') {
-    createRedirect({
-      fromPath: `/kr/*`,
-      toPath: `https://docs.newrelic.com/kr/*`,
-      statusCode: 200,
-    });
-    createRedirect({
-      fromPath: `/jp/*`,
-      toPath: `https://docswebsitejp.gtsb.io/jp/*`,
-      statusCode: 200,
-    });
-  }
   const { data, errors } = await graphql(`
     query {
       allMarkdownRemark(
